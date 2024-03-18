@@ -1,0 +1,239 @@
+(() => {
+  "use strict";
+  let e = (e, t = 500, i = 0) => {
+      e.classList.contains("_slide") ||
+        (e.classList.add("_slide"),
+        (e.style.transitionProperty = "height, margin, padding"),
+        (e.style.transitionDuration = t + "ms"),
+        (e.style.height = `${e.offsetHeight}px`),
+        e.offsetHeight,
+        (e.style.overflow = "hidden"),
+        (e.style.height = i ? `${i}px` : "0px"),
+        (e.style.paddingTop = 0),
+        (e.style.paddingBottom = 0),
+        (e.style.marginTop = 0),
+        (e.style.marginBottom = 0),
+        window.setTimeout(() => {
+          (e.hidden = !i),
+            !i && e.style.removeProperty("height"),
+            e.style.removeProperty("padding-top"),
+            e.style.removeProperty("padding-bottom"),
+            e.style.removeProperty("margin-top"),
+            e.style.removeProperty("margin-bottom"),
+            !i && e.style.removeProperty("overflow"),
+            e.style.removeProperty("transition-duration"),
+            e.style.removeProperty("transition-property"),
+            e.classList.remove("_slide");
+        }, t));
+    },
+    t = (e, t = 500, i = 0) => {
+      if (!e.classList.contains("_slide")) {
+        e.classList.add("_slide"),
+          (e.hidden = !e.hidden && null),
+          i && e.style.removeProperty("height");
+        let s = e.offsetHeight;
+        (e.style.overflow = "hidden"),
+          (e.style.height = i ? `${i}px` : "0px"),
+          (e.style.paddingTop = 0),
+          (e.style.paddingBottom = 0),
+          (e.style.marginTop = 0),
+          (e.style.marginBottom = 0),
+          e.offsetHeight,
+          (e.style.transitionProperty = "height, margin, padding"),
+          (e.style.transitionDuration = t + "ms"),
+          (e.style.height = s + "px"),
+          e.style.removeProperty("padding-top"),
+          e.style.removeProperty("padding-bottom"),
+          e.style.removeProperty("margin-top"),
+          e.style.removeProperty("margin-bottom"),
+          window.setTimeout(() => {
+            e.style.removeProperty("height"),
+              e.style.removeProperty("overflow"),
+              e.style.removeProperty("transition-duration"),
+              e.style.removeProperty("transition-property"),
+              e.classList.remove("_slide");
+          }, t);
+      }
+    };
+  function i(e, t) {
+    const i = Array.from(e).filter(function (e, i, s) {
+      if (e.dataset[t]) return e.dataset[t].split(",")[0];
+    });
+    if (i.length) {
+      const e = [];
+      i.forEach((i) => {
+        const s = {},
+          r = i.dataset[t].split(",");
+        (s.value = r[0]),
+          (s.type = r[1] ? r[1].trim() : "max"),
+          (s.item = i),
+          e.push(s);
+      });
+      let s = e.map(function (e) {
+        return (
+          "(" + e.type + "-width: " + e.value + "px)," + e.value + "," + e.type
+        );
+      });
+      s = (function (e) {
+        return e.filter(function (e, t, i) {
+          return i.indexOf(e) === t;
+        });
+      })(s);
+      const r = [];
+      if (s.length)
+        return (
+          s.forEach((t) => {
+            const i = t.split(","),
+              s = i[1],
+              n = i[2],
+              o = window.matchMedia(i[0]),
+              l = e.filter(function (e) {
+                if (e.value === s && e.type === n) return !0;
+              });
+            r.push({ itemsArray: l, matchMedia: o });
+          }),
+          r
+        );
+    }
+  }
+  function s() {
+    let e = document.querySelectorAll(
+      '[class*="__swiper"]:not(.swiper-wrapper)',
+    );
+    e &&
+      e.forEach((e) => {
+        e.parentElement.classList.add("swiper"),
+          e.classList.add("swiper-wrapper");
+        for (const t of e.children) t.classList.add("swiper-slide");
+      });
+  }
+  window.addEventListener("load", function (e) {
+    s(),
+      document.querySelector(".we-doing__slider") &&
+        new Swiper(".we-doing__slider", {
+          observer: !0,
+          observeParents: !0,
+          slidesPerView: 4,
+          spaceBetween: 24,
+          autoHeight: !1,
+          speed: 800,
+          pagination: { el: ".slider-pagging", clickable: !0 },
+          navigation: {
+            nextEl: ".slider-navigation .slider-navigation-next",
+            prevEl: ".slider-navigation .slider-navigation-prev",
+          },
+          breakpoints: {
+            320: { slidesPerView: 1.2, spaceBetween: 24 },
+            430: { slidesPerView: 1.5, spaceBetween: 24 },
+            530: { slidesPerView: 2.1, spaceBetween: 16 },
+            768: { slidesPerView: 3, spaceBetween: 16 },
+            1024: { slidesPerView: 4, spaceBetween: 24 },
+          },
+          on: {},
+        }),
+      document.querySelector(".so-discount__slider") &&
+        new Swiper(".so-discount__slider", {
+          observer: !0,
+          observeParents: !0,
+          slidesPerView: 3,
+          spaceBetween: 24,
+          autoHeight: !1,
+          speed: 800,
+          pagination: { el: ".slider-pagging", clickable: !0 },
+          breakpoints: {
+            320: { slidesPerView: 1, spaceBetween: 24 },
+            429: { slidesPerView: 1.3, spaceBetween: 24 },
+            529: { slidesPerView: 1.6, spaceBetween: 24 },
+            629: { slidesPerView: 2.1, spaceBetween: 24 },
+            767: { slidesPerView: 2.4, spaceBetween: 24 },
+            1023: { slidesPerView: 3, spaceBetween: 24 },
+          },
+          on: {},
+        });
+  });
+  let r = !1;
+  setTimeout(() => {
+    if (r) {
+      let e = new Event("windowScroll");
+      window.addEventListener("scroll", function (t) {
+        document.dispatchEvent(e);
+      });
+    }
+  }, 0),
+    (window.FLS = !0),
+    (function (e) {
+      let t = new Image();
+      (t.onload = t.onerror =
+        function () {
+          e(2 == t.height);
+        }),
+        (t.src =
+          "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA");
+    })(function (e) {
+      let t = !0 === e ? "webp" : "no-webp";
+      document.documentElement.classList.add(t);
+    }),
+    (function () {
+      const s = document.querySelectorAll("[data-spollers]");
+      if (s.length > 0) {
+        const r = Array.from(s).filter(function (e, t, i) {
+          return !e.dataset.spollers.split(",")[0];
+        });
+        r.length && o(r);
+        let n = i(s, "spollers");
+        function o(e, t = !1) {
+          e.forEach((e) => {
+            (e = t ? e.item : e),
+              t.matches || !t
+                ? (e.classList.add("_spoller-init"),
+                  l(e),
+                  e.addEventListener("click", a))
+                : (e.classList.remove("_spoller-init"),
+                  l(e, !1),
+                  e.removeEventListener("click", a));
+          });
+        }
+        function l(e, t = !0) {
+          const i = e.querySelectorAll("[data-spoller]");
+          i.length > 0 &&
+            i.forEach((e) => {
+              t
+                ? (e.removeAttribute("tabindex"),
+                  e.classList.contains("_spoller-active") ||
+                    (e.nextElementSibling.hidden = !0))
+                : (e.setAttribute("tabindex", "-1"),
+                  (e.nextElementSibling.hidden = !1));
+            });
+        }
+        function a(i) {
+          const s = i.target;
+          if (s.closest("[data-spoller]")) {
+            const r = s.closest("[data-spoller]"),
+              n = r.closest("[data-spollers]"),
+              o = !!n.hasAttribute("data-one-spoller");
+            n.querySelectorAll("._slide").length ||
+              (o && !r.classList.contains("_spoller-active") && d(n),
+              r.classList.toggle("_spoller-active"),
+              ((i, s = 500) => {
+                i.hidden ? t(i, s) : e(i, s);
+              })(r.nextElementSibling, 500)),
+              i.preventDefault();
+          }
+        }
+        function d(t) {
+          const i = t.querySelector("[data-spoller]._spoller-active");
+          i &&
+            (i.classList.remove("_spoller-active"),
+            e(i.nextElementSibling, 300));
+        }
+        n &&
+          n.length &&
+          n.forEach((e) => {
+            e.matchMedia.addEventListener("change", function () {
+              o(e.itemsArray, e.matchMedia);
+            }),
+              o(e.itemsArray, e.matchMedia);
+          });
+      }
+    })();
+})();
