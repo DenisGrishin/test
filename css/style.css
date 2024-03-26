@@ -150,8 +150,7 @@ h6 {
 }
 
 input:focus {
-  outline: none;
-  border: 1px solid #102938;
+  outline: 1px solid #102938;
 }
 
 ._container {
