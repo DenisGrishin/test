@@ -303,7 +303,7 @@
   }
   document.querySelectorAll(".spollers__btn-order").forEach((e) => {
     e.addEventListener("click", function (e) {
-      e.stopPropagation();
+      e.stopPropagation(), alert("s");
     });
   }),
     (function (e) {
