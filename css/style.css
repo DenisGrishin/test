@@ -722,6 +722,7 @@ input:focus {
   line-height: 125%;
 }
 .banner__group-input {
+  padding: 3px 3px 1px 3px;
   border-bottom: 1px solid #102938;
 }
 .banner__button {
@@ -2033,9 +2034,9 @@ input:focus {
 .service-block__text_laptop-my {
   margin-top: 13px;
 }
-@media (max-width: 63.99875em) {
+@media (max-width: 1439.98px) {
   .service-block__text_laptop-my {
-    margin: 13px 0;
+    margin: 18px 0;
   }
 }
 .service-block__text_fw-sb {
@@ -2520,7 +2521,7 @@ input:focus {
   padding: 13px 24px;
   margin-top: 40px;
   font-weight: 500;
-  background-color: #102938;
+  background-color: #273d4b;
 }
 .form-qwiz__restart-btn svg {
   margin-left: 10px;
