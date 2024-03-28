@@ -1,384 +1,539 @@
-(() => {
-  "use strict";
-  let e = (e, t = 500, r = 0) => {
-      e.classList.contains("_slide") ||
-        (e.classList.add("_slide"),
-        (e.style.transitionProperty = "height, margin, padding"),
-        (e.style.transitionDuration = t + "ms"),
-        (e.style.height = `${e.offsetHeight}px`),
-        e.offsetHeight,
-        (e.style.overflow = "hidden"),
-        (e.style.height = r ? `${r}px` : "0px"),
-        (e.style.paddingTop = 0),
-        (e.style.paddingBottom = 0),
-        (e.style.marginTop = 0),
-        (e.style.marginBottom = 0),
-        window.setTimeout(() => {
-          (e.hidden = !r),
-            !r && e.style.removeProperty("height"),
-            e.style.removeProperty("padding-top"),
-            e.style.removeProperty("padding-bottom"),
-            e.style.removeProperty("margin-top"),
-            e.style.removeProperty("margin-bottom"),
-            !r && e.style.removeProperty("overflow"),
-            e.style.removeProperty("transition-duration"),
-            e.style.removeProperty("transition-property"),
-            e.classList.remove("_slide");
-        }, t));
-    },
-    t = (e, t = 500, r = 0) => {
-      if (!e.classList.contains("_slide")) {
-        e.classList.add("_slide"),
-          (e.hidden = !e.hidden && null),
-          r && e.style.removeProperty("height");
-        let s = e.offsetHeight;
-        (e.style.overflow = "hidden"),
-          (e.style.height = r ? `${r}px` : "0px"),
-          (e.style.paddingTop = 0),
-          (e.style.paddingBottom = 0),
-          (e.style.marginTop = 0),
-          (e.style.marginBottom = 0),
-          e.offsetHeight,
-          (e.style.transitionProperty = "height, margin, padding"),
-          (e.style.transitionDuration = t + "ms"),
-          (e.style.height = s + "px"),
-          e.style.removeProperty("padding-top"),
-          e.style.removeProperty("padding-bottom"),
-          e.style.removeProperty("margin-top"),
-          e.style.removeProperty("margin-bottom"),
-          window.setTimeout(() => {
-            e.style.removeProperty("height"),
-              e.style.removeProperty("overflow"),
-              e.style.removeProperty("transition-duration"),
-              e.style.removeProperty("transition-property"),
-              e.classList.remove("_slide");
-          }, t);
-      }
-    };
-  function r(e, t) {
-    const r = Array.from(e).filter(function (e, r, s) {
-      if (e.dataset[t]) return e.dataset[t].split(",")[0];
-    });
-    if (r.length) {
-      const e = [];
-      r.forEach((r) => {
-        const s = {},
-          n = r.dataset[t].split(",");
-        (s.value = n[0]),
-          (s.type = n[1] ? n[1].trim() : "max"),
-          (s.item = r),
-          e.push(s);
-      });
-      let s = e.map(function (e) {
-        return (
-          "(" + e.type + "-width: " + e.value + "px)," + e.value + "," + e.type
-        );
-      });
-      s = (function (e) {
-        return e.filter(function (e, t, r) {
-          return r.indexOf(e) === t;
-        });
-      })(s);
-      const n = [];
-      if (s.length)
-        return (
-          s.forEach((t) => {
-            const r = t.split(","),
-              s = r[1],
-              i = r[2],
-              o = window.matchMedia(r[0]),
-              l = e.filter(function (e) {
-                if (e.value === s && e.type === i) return !0;
-              });
-            n.push({ itemsArray: l, matchMedia: o });
-          }),
-          n
-        );
+/******/ (() => {
+  // webpackBootstrap
+  /******/ "use strict";
+  var __webpack_exports__ = {}; // CONCATENATED MODULE: ./src/js/files/functions.js
+
+  function isWebp() {
+    // Проверка поддержки webp
+    function testWebP(callback) {
+      let webP = new Image();
+      webP.onload = webP.onerror = function () {
+        callback(webP.height == 2);
+      };
+      webP.src =
+        "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA";
     }
+    // Добавление класса _webp или _no-webp для HTML
+    testWebP(function (support) {
+      let className = support === true ? "webp" : "no-webp";
+      document.documentElement.classList.add(className);
+    });
   }
-  function s() {
-    let e = document.querySelectorAll(
-      '[class*="__swiper"]:not(.swiper-wrapper)',
-    );
-    e &&
-      e.forEach((e) => {
-        e.parentElement.classList.add("swiper"),
-          e.classList.add("swiper-wrapper");
-        for (const t of e.children) t.classList.add("swiper-slide");
-      });
-  }
-  window.addEventListener("load", function (e) {
-    s(),
-      document.querySelector(".we-doing__slider") &&
-        new Swiper(".we-doing__slider", {
-          observer: !0,
-          observeParents: !0,
-          slidesPerView: 4,
-          spaceBetween: 25,
-          autoHeight: !1,
-          speed: 800,
-          navigation: {
-            nextEl: ".slider-navigation .slider-navigation-next",
-            prevEl: ".slider-navigation .slider-navigation-prev",
-          },
-          breakpoints: {
-            320: { slidesPerView: 1.3, spaceBetween: 15 },
-            429.98: { slidesPerView: 1.3 },
-            767.98: { slidesPerView: 2.3, spaceBetween: 15 },
-            1023.98: { slidesPerView: 3, spaceBetween: 20 },
-            1439.98: { spaceBetween: 24 },
-          },
-          on: {},
-        }),
-      document.querySelector(".so-discount__slider") &&
-        new Swiper(".so-discount__slider", {
-          observer: !0,
-          observeParents: !0,
-          slidesPerView: 3,
-          spaceBetween: 30,
-          autoHeight: !1,
-          speed: 800,
-          pagination: { el: ".so-discount__pagging", clickable: !0 },
-          breakpoints: {
-            320.98: { slidesPerView: 1.1, spaceBetween: 30 },
-            429.98: { slidesPerView: 1.28 },
-            767.98: { slidesPerView: 2.25, spaceBetween: 30 },
-            1023.98: { slidesPerView: 3 },
-          },
-          on: {},
-        }),
-      document.querySelector(".banner-gallery__slider") &&
-        new Swiper(".banner-gallery__slider", {
-          observer: !0,
-          observeParents: !0,
-          slidesPerView: 1,
-          spaceBetween: 0,
-          autoHeight: !1,
-          speed: 800,
-          pagination: { el: ".banner-gallery__pagination", clickable: !0 },
-          breakpoints: {},
-          on: {},
-        }),
-      document.querySelector(".banner-gallery__slider") &&
-        new Swiper(".banner-gallery__slider", {
-          observer: !0,
-          observeParents: !0,
-          slidesPerView: 1,
-          spaceBetween: 0,
-          autoHeight: !1,
-          speed: 800,
-          pagination: { el: ".banner-gallery__pagination", clickable: !0 },
-          navigation: {
-            nextEl: ".banner-gallery__navigation .banner-gallery__btn_prev",
-            prevEl: ".banner-gallery__navigation .banner-gallery__btn_next",
-          },
-          breakpoints: {},
-          on: {},
-        });
-  }),
-    ymaps.ready(function () {
-      var e = new ymaps.Map(
-        "map",
-        { center: [55.73, 37.6], zoom: 8 },
-        { searchControlProvider: "yandex#search" },
-      );
-      e.controls.remove("geolocationControl"),
-        e.controls.remove("searchControl"),
-        e.controls.remove("trafficControl"),
-        e.controls.remove("typeSelector"),
-        e.controls.remove("fullscreenControl"),
-        e.controls.remove("zoomControl"),
-        e.controls.remove("rulerControl"),
-        e.behaviors.disable(["scrollZoom"]),
-        e.geoObjects.add(new ymaps.Placemark([55.73, 37.6], {}));
-      let t = new ymaps.Polygon(
-        [
-          [
-            [54.80831947994278, 38.18433433925412],
-            [54.87945876925923, 38.52995859405644],
-            [55.122011885673516, 38.67767483903884],
-            [55.37773639221365, 38.95005546337981],
-            [55.69101620830514, 39.06854923170738],
-            [55.962220037403114, 39.09331426601756],
-            [56.118493229997256, 38.83962697728742],
-            [56.38328535103986, 38.538312268742686],
-            [56.72694946754399, 38.84094055277811],
-            [56.54218234666476, 37.45911829335503],
-            [56.484269925944716, 36.55340126947627],
-            [56.082994973012944, 35.26044765213379],
-            [55.528582146509564, 35.79574540554199],
-            [54.886906159423376, 36.2751232506904],
-            [54.80831947994278, 38.18433433925412],
-          ],
-        ],
-        { hintContent: "Многоугольник" },
-        {
-          fillColor: "#009CD9",
-          strokeWidth: 1,
-          strokeColor: "#0067A0",
-          strokeOpacity: 1,
-          fillOpacity: 0.2,
+
+  // Вспомогательные модули плавного расскрытия и закрытия объекта в этом слчае для спойлера(Аркадеон) ======================================================================================================================================================================
+  let _slideUp = (target, duration = 500, showmore = 0) => {
+    if (!target.classList.contains("_slide")) {
+      target.classList.add("_slide");
+      target.style.transitionProperty = "height, margin, padding";
+      target.style.transitionDuration = duration + "ms";
+      target.style.height = `${target.offsetHeight}px`;
+      target.offsetHeight;
+      target.style.overflow = "hidden";
+      target.style.height = showmore ? `${showmore}px` : `0px`;
+      target.style.paddingTop = 0;
+      target.style.paddingBottom = 0;
+      target.style.marginTop = 0;
+      target.style.marginBottom = 0;
+      window.setTimeout(() => {
+        target.hidden = !showmore ? true : false;
+        !showmore ? target.style.removeProperty("height") : null;
+        target.style.removeProperty("padding-top");
+        target.style.removeProperty("padding-bottom");
+        target.style.removeProperty("margin-top");
+        target.style.removeProperty("margin-bottom");
+        !showmore ? target.style.removeProperty("overflow") : null;
+        target.style.removeProperty("transition-duration");
+        target.style.removeProperty("transition-property");
+        target.classList.remove("_slide");
+      }, duration);
+    }
+  };
+  let _slideDown = (target, duration = 500, showmore = 0) => {
+    if (!target.classList.contains("_slide")) {
+      target.classList.add("_slide");
+      target.hidden = target.hidden ? false : null;
+      showmore ? target.style.removeProperty("height") : null;
+      let height = target.offsetHeight;
+      target.style.overflow = "hidden";
+      target.style.height = showmore ? `${showmore}px` : `0px`;
+      target.style.paddingTop = 0;
+      target.style.paddingBottom = 0;
+      target.style.marginTop = 0;
+      target.style.marginBottom = 0;
+      target.offsetHeight;
+      target.style.transitionProperty = "height, margin, padding";
+      target.style.transitionDuration = duration + "ms";
+      target.style.height = height + "px";
+      target.style.removeProperty("padding-top");
+      target.style.removeProperty("padding-bottom");
+      target.style.removeProperty("margin-top");
+      target.style.removeProperty("margin-bottom");
+      window.setTimeout(() => {
+        target.style.removeProperty("height");
+        target.style.removeProperty("overflow");
+        target.style.removeProperty("transition-duration");
+        target.style.removeProperty("transition-property");
+        target.classList.remove("_slide");
+      }, duration);
+    }
+  };
+  let _slideToggle = (target, duration = 500) => {
+    if (target.hidden) {
+      return _slideDown(target, duration);
+    } else {
+      return _slideUp(target, duration);
+    }
+  };
+
+  // Модуль работы со спойлерами =======================================================================================================================================================================================================================
+  /*
+Для родителя слойлеров пишем атрибут data-spollers
+Для заголовков слойлеров пишем атрибут data-spoller
+Если нужно включать\выключать работу спойлеров на разных размерах экранов
+пишем параметры ширины и типа брейкпоинта.
+
+Например: 
+data-spollers="992,max" - спойлеры будут работать только на экранах меньше или равно 992px
+data-spollers="768,min" - спойлеры будут работать только на экранах больше или равно 768px
+
+Если нужно что бы в блоке открывался болько один слойлер добавляем атрибут data-one-spoller
+*/
+  function spollers() {
+    const spollersArray = document.querySelectorAll("[data-spollers]");
+    if (spollersArray.length > 0) {
+      // Получение обычных слойлеров
+      const spollersRegular = Array.from(spollersArray).filter(
+        function (item, index, self) {
+          return !item.dataset.spollers.split(",")[0];
         },
       );
-      e.geoObjects.add(t);
-    }),
-    ($.fn.setCursorPosition = function (e) {
-      $(this).get(0).setSelectionRange &&
-        11 != $(this).val().replace(/\D/g, "").length &&
-        $(this).get(0).setSelectionRange(e, e);
-    }),
-    ($.mask.definitions.N = "[/0-6|9/]"),
-    $(".phone_mask")
-      .click(function () {
-        $(this).setCursorPosition(2);
-      })
-      .mask("+7 N99 999-99-99");
-  const n = document.querySelector(".form-qwiz"),
-    i = document.querySelectorAll(".form-qwiz__input"),
-    o = document.querySelectorAll(".form-qwiz__step"),
-    l = document.querySelector(".qwiz-section__prev-btn"),
-    a = document.querySelector(".qwiz-section__next-btn"),
-    d = document.querySelector(".qwiz-section__bottom"),
-    c = document.querySelector(".qwiz-section__current-step"),
-    p = document.querySelector(".form-qwiz__restart-btn"),
-    m = document.querySelector(".form-qwiz__btn");
-  let y = 0,
-    u = !1;
-  a.addEventListener("click", g),
-    l.addEventListener("click", function (e) {
-      y === o.length - 2 && c.parentNode.classList.remove("_ready");
-      y === o.length - 3 &&
-        (a.classList.remove("_disabled"), (l.disabled = !0));
-      if (l.classList.contains("_disabled")) return;
-      y--, (c.innerHTML = y + 1), 0 === y && l.classList.add("_disabled");
-      (a.disabled = !1),
-        o[y + 1].classList.remove("_current"),
-        o[y].classList.add("_current");
-    }),
-    n.addEventListener("click", function (e) {
-      e.target.classList.contains("form-qwiz__input") &&
-        (!(function () {
-          for (let e = 0; e < i.length; e++) {
-            if (i[e].checked) return void (u = !0);
-          }
-          u = !1;
-        })(),
-        u ||
-          y !== o.length - 3 ||
-          (a.classList.add("_disabled"), (a.disabled = !0)),
-        u && (a.classList.remove("_disabled"), (a.disabled = !1)));
-    }),
-    m.addEventListener("click", function (e) {
-      g();
-    }),
-    p.addEventListener("click", function (e) {
-      (y = 0),
-        (u = !1),
-        (c.innerHTML = 1),
-        l.classList.add("_disabled"),
-        (l.disabled = !0),
-        o[0].classList.add("_current"),
-        o[o.length - 1].classList.remove("_current"),
-        (d.style.display = "flex"),
-        (c.parentNode.style.display = "flex"),
-        c.parentNode.classList.remove("_ready"),
-        i.forEach((e) => (e.checked = !1));
-    });
-  document.querySelectorAll(".quiz-form .hover-group-input");
-  function g(e) {
-    ++y,
-      u && y === o.length - 2 && c.parentNode.classList.add("_ready"),
-      u ||
-        y !== o.length - 3 ||
-        (a.classList.add("_disabled"), (a.disabled = !0)),
-      o.length - 1 === y && (c.parentNode.style.display = "none"),
-      o.length - 2 === y && (d.style.display = "none"),
-      o.length !== y
-        ? ((c.innerHTML = y + 1),
-          l.classList.remove("_disabled"),
-          (l.disabled = !1),
-          o[y - 1].classList.remove("_current"),
-          o[y].classList.add("_current"))
-        : (o[y - 1].style.display = "none");
-  }
-  document.querySelectorAll(".spollers__btn-order").forEach((e) => {
-    e.addEventListener("click", function (e) {
-      e.stopPropagation(), alert("s");
-    });
-  }),
-    (function (e) {
-      let t = new Image();
-      (t.onload = t.onerror =
-        function () {
-          e(2 == t.height);
-        }),
-        (t.src =
-          "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA");
-    })(function (e) {
-      let t = !0 === e ? "webp" : "no-webp";
-      document.documentElement.classList.add(t);
-    }),
-    (function () {
-      const s = document.querySelectorAll("[data-spollers]");
-      if (s.length > 0) {
-        const n = Array.from(s).filter(function (e, t, r) {
-          return !e.dataset.spollers.split(",")[0];
-        });
-        n.length && o(n);
-        let i = r(s, "spollers");
-        function o(e, t = !1) {
-          e.forEach((e) => {
-            (e = t ? e.item : e),
-              t.matches || !t
-                ? (e.classList.add("_spoller-init"),
-                  l(e),
-                  e.addEventListener("click", a))
-                : (e.classList.remove("_spoller-init"),
-                  l(e, !1),
-                  e.removeEventListener("click", a));
-          });
-        }
-        function l(e, t = !0) {
-          const r = e.querySelectorAll("[data-spoller]");
-          r.length > 0 &&
-            r.forEach((e) => {
-              t
-                ? (e.removeAttribute("tabindex"),
-                  e.classList.contains("_spoller-active") ||
-                    (e.nextElementSibling.hidden = !0))
-                : (e.setAttribute("tabindex", "-1"),
-                  (e.nextElementSibling.hidden = !1));
-            });
-        }
-        function a(r) {
-          const s = r.target;
-          if (s.closest("[data-spoller]")) {
-            const n = s.closest("[data-spoller]"),
-              i = n.closest("[data-spollers]"),
-              o = !!i.hasAttribute("data-one-spoller");
-            i.querySelectorAll("._slide").length ||
-              (o && !n.classList.contains("_spoller-active") && d(i),
-              n.classList.toggle("_spoller-active"),
-              ((r, s = 500) => {
-                r.hidden ? t(r, s) : e(r, s);
-              })(n.nextElementSibling, 300)),
-              r.preventDefault();
-          }
-        }
-        function d(t) {
-          const r = t.querySelector("[data-spoller]._spoller-active");
-          r &&
-            (r.classList.remove("_spoller-active"),
-            e(r.nextElementSibling, 300));
-        }
-        i &&
-          i.length &&
-          i.forEach((e) => {
-            e.matchMedia.addEventListener("change", function () {
-              o(e.itemsArray, e.matchMedia);
-            }),
-              o(e.itemsArray, e.matchMedia);
-          });
+      // Инициализация обычных слойлеров
+      if (spollersRegular.length) {
+        initSpollers(spollersRegular);
       }
-    })();
+
+      // Инициализация
+      function initSpollers(spollersArray, matchMedia = false) {
+        spollersArray.forEach((spollersBlock) => {
+          spollersBlock = matchMedia ? spollersBlock.item : spollersBlock;
+          if (matchMedia.matches || !matchMedia) {
+            spollersBlock.classList.add("_spoller-init");
+            initSpollerBody(spollersBlock);
+            spollersBlock.addEventListener("click", setSpollerAction);
+          } else {
+            spollersBlock.classList.remove("_spoller-init");
+            initSpollerBody(spollersBlock, false);
+            spollersBlock.removeEventListener("click", setSpollerAction);
+          }
+        });
+      }
+      // Работа с контентом
+      function initSpollerBody(spollersBlock, hideSpollerBody = true) {
+        const spollerTitles = spollersBlock.querySelectorAll("[data-spoller]");
+        if (spollerTitles.length > 0) {
+          spollerTitles.forEach((spollerTitle) => {
+            if (hideSpollerBody) {
+              spollerTitle.removeAttribute("tabindex");
+              if (!spollerTitle.classList.contains("_spoller-active")) {
+                spollerTitle.nextElementSibling.hidden = true;
+              }
+            } else {
+              spollerTitle.setAttribute("tabindex", "-1");
+              spollerTitle.nextElementSibling.hidden = false;
+            }
+          });
+        }
+      }
+      function setSpollerAction(e) {
+        const el = e.target;
+        if (el.closest("[data-spoller]")) {
+          const spollerTitle = el.closest("[data-spoller]");
+          const spollersBlock = spollerTitle.closest("[data-spollers]");
+          const oneSpoller = spollersBlock.hasAttribute("data-one-spoller")
+            ? true
+            : false;
+          if (!spollersBlock.querySelectorAll("._slide").length) {
+            if (
+              oneSpoller &&
+              !spollerTitle.classList.contains("_spoller-active")
+            ) {
+              hideSpollersBody(spollersBlock);
+            }
+            spollerTitle.classList.toggle("_spoller-active");
+            _slideToggle(spollerTitle.nextElementSibling, 300);
+          }
+
+          e.preventDefault();
+        }
+      }
+      function hideSpollersBody(spollersBlock) {
+        const spollerActiveTitle = spollersBlock.querySelector(
+          "[data-spoller]._spoller-active",
+        );
+        if (spollerActiveTitle) {
+          spollerActiveTitle.classList.remove("_spoller-active");
+          _slideUp(spollerActiveTitle.nextElementSibling, 300);
+        }
+      }
+    }
+  } // CONCATENATED MODULE: ./src/js/files/sliders.js
+
+  //================================================================================================================================================================================================================================================================================================================
+
+  function bildSliders() {
+    //BildSlider
+    let sliders = document.querySelectorAll(
+      '[class*="__swiper"]:not(.swiper-wrapper)',
+    );
+    if (sliders) {
+      sliders.forEach((slider) => {
+        slider.parentElement.classList.add("swiper");
+        slider.classList.add("swiper-wrapper");
+        for (const slide of slider.children) {
+          slide.classList.add("swiper-slide");
+        }
+      });
+    }
+  }
+  // Инициализация слайдеров
+  function initSliders() {
+    // Добавление классов слайдера
+    // при необходимости отключить
+    bildSliders();
+
+    // Перечень слайдеров
+    if (document.querySelector(".we-doing__slider")) {
+      new Swiper(".we-doing__slider", {
+        observer: true,
+        observeParents: true,
+        slidesPerView: 4,
+        spaceBetween: 25,
+        autoHeight: false,
+        speed: 800,
+        // Arrows
+        navigation: {
+          nextEl: ".slider-navigation .slider-navigation-next",
+          prevEl: ".slider-navigation .slider-navigation-prev",
+        },
+
+        breakpoints: {
+          320: {
+            slidesPerView: 1.3,
+            spaceBetween: 15,
+          },
+          429.98: { slidesPerView: 1.3 },
+
+          767.98: {
+            slidesPerView: 2.3,
+            spaceBetween: 15,
+          },
+          1023.98: { slidesPerView: 3, spaceBetween: 20 },
+          1439.98: {
+            spaceBetween: 24,
+          },
+        },
+
+        on: {},
+      });
+    }
+    if (document.querySelector(".so-discount__slider")) {
+      new Swiper(".so-discount__slider", {
+        observer: true,
+        observeParents: true,
+        slidesPerView: 3,
+        spaceBetween: 30,
+        autoHeight: false,
+        speed: 800,
+        pagination: {
+          el: ".so-discount__pagging",
+          clickable: true,
+        },
+
+        breakpoints: {
+          320.98: {
+            slidesPerView: 1.1,
+            spaceBetween: 30,
+          },
+          429.98: { slidesPerView: 1.28 },
+
+          767.98: {
+            slidesPerView: 2.25,
+            spaceBetween: 30,
+          },
+          1023.98: { slidesPerView: 3 },
+        },
+
+        on: {},
+      });
+    }
+    if (document.querySelector(".banner-gallery__slider")) {
+      new Swiper(".banner-gallery__slider", {
+        observer: true,
+        observeParents: true,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        autoHeight: false,
+        speed: 800,
+        pagination: {
+          el: ".banner-gallery__pagination",
+          clickable: true,
+        },
+
+        breakpoints: {},
+
+        on: {},
+      });
+    }
+    if (document.querySelector(".banner-gallery__slider")) {
+      new Swiper(".banner-gallery__slider", {
+        observer: true,
+        observeParents: true,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        autoHeight: false,
+        speed: 800,
+        pagination: {
+          el: ".banner-gallery__pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".banner-gallery__navigation .banner-gallery__btn_prev",
+          prevEl: ".banner-gallery__navigation .banner-gallery__btn_next",
+        },
+        breakpoints: {},
+        on: {},
+      });
+    }
+  }
+  // Скролл на базе слайдера (по классу swiper_scroll для оболочки слайдера)
+  function initSlidersScroll() {
+    // Добавление классов слайдера
+    // при необходимости отключить
+    bildSliders();
+  }
+
+  window.addEventListener("load", function (e) {
+    // Запуск инициализации слайдеров
+    initSliders();
+  }); // CONCATENATED MODULE: ./src/js/files/script.js
+
+  /* маска на инупт */
+  $.mask.definitions["N"] = "[/0-6|9/]";
+
+  $(".phone_mask")
+    .click(function () {
+      $(this).setCursorPosition(2);
+    })
+    .mask("+7 N99 999-99-99");
+
+  $.fn.setCursorPosition = function (pos) {
+    if (
+      $(this).get(0).setSelectionRange &&
+      $(this).val().replace(/\D/g, "").length != 11
+    ) {
+      $(this).get(0).setSelectionRange(pos, pos);
+    }
+  };
+  /* инициализация карты */
+  function initMap() {
+    var myMap = new ymaps.Map(
+      "map",
+      {
+        center: [55.73, 37.6],
+        zoom: 8,
+      },
+      {
+        searchControlProvider: "yandex#search",
+      },
+    );
+    myMap.controls.remove("geolocationControl"); // удаляем геолокацию
+    myMap.controls.remove("searchControl"); // удаляем поиск
+    myMap.controls.remove("trafficControl"); // удаляем контроль трафика
+    myMap.controls.remove("typeSelector"); // удаляем тип
+    myMap.controls.remove("fullscreenControl"); // удаляем кнопку перехода в полноэкранный режим
+    myMap.controls.remove("zoomControl"); // удаляем контрол зуммирования
+    myMap.controls.remove("rulerControl"); // удаляем контрол правил
+    myMap.behaviors.disable(["scrollZoom"]); // отключаем скролл карты (опционально)
+
+    myMap.geoObjects.add(new ymaps.Placemark([55.73, 37.6], {}));
+    let myPolygon = new ymaps.Polygon(
+      [
+        [
+          [54.80831947994278, 38.18433433925412],
+          [54.87945876925923, 38.52995859405644],
+          [55.122011885673516, 38.67767483903884],
+          [55.37773639221365, 38.95005546337981],
+          [55.69101620830514, 39.06854923170738],
+          [55.962220037403114, 39.09331426601756],
+          [56.118493229997256, 38.83962697728742],
+          [56.38328535103986, 38.538312268742686],
+          [56.72694946754399, 38.84094055277811],
+          [56.54218234666476, 37.45911829335503],
+          [56.484269925944716, 36.55340126947627],
+          [56.082994973012944, 35.26044765213379],
+          [55.528582146509564, 35.79574540554199],
+          [54.886906159423376, 36.2751232506904],
+          [54.80831947994278, 38.18433433925412],
+        ],
+      ],
+      {
+        hintContent: "Многоугольник",
+      },
+      {
+        fillColor: "#009CD9",
+        strokeWidth: 1,
+        strokeColor: "#0067A0",
+        strokeOpacity: 1,
+        fillOpacity: 0.2,
+      },
+    );
+
+    myMap.geoObjects.add(myPolygon);
+  }
+  ymaps.ready(initMap);
+  // ======================
+
+  function initQwiz() {
+    const checkBlock = document.querySelector(".form-qwiz");
+    const inputChecks = document.querySelectorAll(".form-qwiz__input");
+    const steps = document.querySelectorAll(".form-qwiz__step");
+    const prevBtn = document.querySelector(".qwiz-section__prev-btn");
+    const nextBtn = document.querySelector(".qwiz-section__next-btn");
+    const panelNavigate = document.querySelector(".qwiz-section__bottom");
+    const stepCurrentNumber = document.querySelector(
+      ".qwiz-section__current-step",
+    );
+    const restartBtn = document.querySelector(".form-qwiz__restart-btn");
+    const submitBtn = document.querySelector(".form-qwiz__btn");
+    let currentStep = 0;
+    let isCheck = false;
+
+    nextBtn.addEventListener("click", nextStep);
+    prevBtn.addEventListener("click", prevStep);
+    checkBlock.addEventListener("click", isClickCheck);
+    // кнопка submit для теста, сделано для просмтора финальной страницы
+    submitBtn.addEventListener("click", function (e) {
+      nextStep();
+    });
+
+    // кнопка заказать занова
+    restartBtn.addEventListener("click", function (e) {
+      currentStep = 0;
+      isCheck = false;
+      stepCurrentNumber.innerHTML = 1;
+      prevBtn.classList.add("_disabled");
+      prevBtn.disabled = true;
+      steps[0].classList.add("_current");
+      steps[steps.length - 1].classList.remove("_current");
+      panelNavigate.style.display = "flex";
+      stepCurrentNumber.parentNode.style.display = "flex";
+      stepCurrentNumber.parentNode.classList.remove("_ready");
+      inputChecks.forEach((inpt) => (inpt.checked = false));
+    });
+
+    function isClickCheck(e) {
+      let target = e.target;
+      if (target.classList.contains("form-qwiz__input")) {
+        isValidateFormService();
+
+        if (!isCheck && currentStep === steps.length - 3) {
+          nextBtn.classList.add("_disabled");
+          nextBtn.disabled = true;
+        }
+        if (isCheck) {
+          nextBtn.classList.remove("_disabled");
+          nextBtn.disabled = false;
+        }
+      }
+    }
+    // ==============================================================================
+
+    // шаг вперед
+    function nextStep(e) {
+      ++currentStep;
+
+      if (isCheck && currentStep === steps.length - 2) {
+        stepCurrentNumber.parentNode.classList.add("_ready");
+      }
+
+      if (!isCheck && currentStep === steps.length - 3) {
+        nextBtn.classList.add("_disabled");
+        nextBtn.disabled = true;
+      }
+      if (steps.length - 1 === currentStep) {
+        stepCurrentNumber.parentNode.style.display = "none";
+      }
+
+      if (steps.length - 2 === currentStep) {
+        panelNavigate.style.display = "none";
+      }
+
+      if (steps.length === currentStep) {
+        steps[currentStep - 1].style.display = "none";
+        return;
+      }
+
+      stepCurrentNumber.innerHTML = currentStep + 1;
+
+      prevBtn.classList.remove("_disabled");
+      prevBtn.disabled = false;
+      steps[currentStep - 1].classList.remove("_current");
+      steps[currentStep].classList.add("_current");
+    }
+    // шаг назад
+    function prevStep(e) {
+      if (currentStep === steps.length - 2) {
+        stepCurrentNumber.parentNode.classList.remove("_ready");
+      }
+
+      if (currentStep === steps.length - 3) {
+        nextBtn.classList.remove("_disabled");
+        prevBtn.disabled = true;
+      }
+
+      if (prevBtn.classList.contains("_disabled")) {
+        return;
+      }
+      currentStep--;
+      stepCurrentNumber.innerHTML = currentStep + 1;
+
+      if (currentStep === 0) {
+        prevBtn.classList.add("_disabled");
+      }
+      nextBtn.disabled = false;
+      steps[currentStep + 1].classList.remove("_current");
+      steps[currentStep].classList.add("_current");
+    }
+
+    // валидация чекбокса
+    function isValidateFormService() {
+      for (let i = 0; i < inputChecks.length; i++) {
+        const element = inputChecks[i];
+        if (element.checked) {
+          isCheck = true;
+          return;
+        }
+      }
+      isCheck = false;
+      return;
+    }
+  }
+  initQwiz();
+
+  const spollerOrderBtns = document.querySelectorAll(".spollers__btn-order");
+  spollerOrderBtns.forEach((element) => {
+    element.addEventListener("click", function (e) {
+      e.stopPropagation();
+    });
+  }); // CONCATENATED MODULE: ./src/js/app.js
+
+  // Основные модули ========================================================================================================================================================================================================================================================
+
+  isWebp();
+
+  spollers();
+
+  //============================================================================================================================================================================================================================================
+
+  /******/
 })();
