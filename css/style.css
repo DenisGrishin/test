@@ -2011,15 +2011,17 @@ ul {
   width: 160px;
   height: 160px;
   cursor: pointer;
+}
+.inst-gallery__img {
   padding: 2px;
   border: 2px solid #ff6701;
   border-radius: 12px;
 }
-.inst-gallery__slide._viewed {
-  border-color: transparent;
-}
 .inst-gallery__img img {
   border-radius: 12px;
+}
+.inst-gallery__img._viewed {
+  border-color: transparent;
 }
 
 /* 
@@ -2055,8 +2057,8 @@ ul {
 
 .inst-gallery-full__close {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 2px;
+  top: 5px;
   width: 59px;
   height: 59px;
   display: flex;
@@ -2100,7 +2102,6 @@ ul {
   transform: translate(-50%, 0px);
   top: 13px;
 }
-
 .inst-gallery-full__navigation-line {
   width: 100%;
   height: 2px;
@@ -2231,10 +2232,10 @@ ul {
 }
 .inst-story__link {
   position: absolute;
-  bottom: 33px;
+  bottom: 17px;
   background-color: red;
   z-index: 111111111111111;
-  width: 87%;
+  width: 90%;
   height: 60px;
 }
 
@@ -2266,32 +2267,6 @@ ul {
   width: var(--insta-gallery-slide-width);
   border-radius: 6px;
   overflow: visible !important;
-}
-
-.inst-gallery-full__volume-button {
-  position: absolute;
-  width: 55px;
-  height: 55px;
-  top: 2px;
-  left: 0;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-  transform: translateZ(150px);
-  display: none;
-}
-
-.inst-gallery-full__volume-button svg {
-  width: 25px;
-  position: absolute;
-  height: 15px;
-  fill: white;
-}
-
-.swiper-slide-active .inst-gallery-full__sound {
-  display: flex;
 }
 
 @media screen and (min-width: 430px) {
@@ -2397,13 +2372,13 @@ ul {
   }
 }
 .inst-story__button {
+  cursor: pointer;
   position: absolute;
-  z-index: 1;
+  z-index: 100;
   width: 100%;
   height: 100%;
   opacity: 0;
   display: block;
-  cursor: inherit;
   transform-style: preserve-3d;
   transform: translateZ(100px);
 }
@@ -2423,7 +2398,7 @@ ul {
 
 @media screen and (max-width: 430px) {
   .inst-story__link {
-    bottom: 28px;
+    bottom: 18px;
     width: 100%;
   }
   .insta-gallery__title {
@@ -2505,4 +2480,17 @@ ul {
     top: 21px;
     left: 16px;
   }
+}
+.inst-story__contetn {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  padding: 20px;
+  display: flex;
+  align-items: flex-end;
+}
+.inst-story__contetn img {
+  vertical-align: bottom;
 }
